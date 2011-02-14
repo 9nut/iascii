@@ -1,6 +1,6 @@
 include $(GOROOT)/src/Make.inc
 
-TARG=iascii
+TARG=github.com/9nut/iascii
 GOFILES=\
 	iascii.go\
 
