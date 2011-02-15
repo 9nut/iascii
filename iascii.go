@@ -15,7 +15,7 @@ func Encode(w io.Writer, m image.Image) (err os.Error) {
 		return
 	}
 
-	cm := []uint8(".ocOGDQ@")
+	cm := []byte(".ocOGDQ@")
 	for y := b.Min.Y; y < b.Max.Y; y++ {
 		for x := b.Min.X; x < b.Max.X; x++ {
 			c := image.GrayColorModel.Convert(m.At(x, y)).(image.GrayColor)
@@ -25,7 +25,7 @@ func Encode(w io.Writer, m image.Image) (err os.Error) {
 				return
 			}
 		}
-		_, err = w.Write([]uint8("\n"))
+		_, err = w.Write([]byte("\n"))
 		if err != nil {
 			return
 		}
