@@ -11,7 +11,7 @@ import (
 )
 
 func img2txt(fname string) {
-	f, err := os.Open(fname, os.O_RDONLY, 0)
+	f, err := os.Open(fname)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "%s: %v\n", fname, err)
 		return
