@@ -1,26 +1,27 @@
-//2,|gofmt
 package iascii
 
 import (
+	"fmt"
 	"image"
+	"image/color"
 	"io"
-	"os"
 )
 
-func Encode(w io.Writer, m image.Image) (err os.Error) {
+func Encode(w io.Writer, m image.Image) (err error) {
 	b := m.Bounds()
 	mw, mh := b.Dx(), b.Dy()
 	if mw <= 0 || mh <= 0 {
-		err = os.NewError("Bad image bounds")
+		err = fmt.Errorf("Bad image bounds")
 		return
 	}
 
 	cm := []byte(".ocOGDQ@")
 	for y := b.Min.Y; y < b.Max.Y; y++ {
 		for x := b.Min.X; x < b.Max.X; x++ {
-			c := image.GrayColorModel.Convert(m.At(x, y)).(image.GrayColor)
-			c.Y >>= 5
-			_, err = w.Write(cm[c.Y : c.Y+1])
+			c := color.GrayModel.Convert(m.At(x, y))
+			nc := c.(color.Gray)
+			nc.Y >>= 5
+			_, err = w.Write(cm[nc.Y : nc.Y+1])
 			if err != nil {
 				return
 			}
